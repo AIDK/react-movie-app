@@ -4,19 +4,7 @@ import { router, useLocalSearchParams } from "expo-router";
 import { fetchMovieDetails } from "@/services/api";
 import useFetch from "@/services/useFetch";
 import { icons } from "@/constants/icons";
-
-interface MovieInfoProps {
-  label: string;
-  value?: string | number | null;
-}
-const MovieInfo = ({ label, value }: MovieInfoProps) => (
-  <View className={"flex-col items-start justify-center mt-5"}>
-    <Text className={"text-light-200 font-normal text-sm"}>{label}</Text>
-    <Text className={"text-light-100 font-bold text-sm mt-2"}>
-      {value || "NA"}
-    </Text>
-  </View>
-);
+import MovieInfo from "@/components/MovieInfo";
 
 const MovieDetails = () => {
   const { id } = useLocalSearchParams();
@@ -72,11 +60,11 @@ const MovieDetails = () => {
           <View className={"flex flex-row justify-between w-1/2"}>
             <MovieInfo
               label={"Budget"}
-              value={`$${movie?.budget / 1_000_000} million`}
+              value={`$${movie?.budget ?? 0 / 1_000_000} million`}
             />
             <MovieInfo
               label={"Revenue"}
-              value={`$${Math.round(movie?.revenue) / 1_000_000}`}
+              value={`$${Math.round(movie?.revenue ?? 0) / 1_000_000}`}
             />
           </View>
 
